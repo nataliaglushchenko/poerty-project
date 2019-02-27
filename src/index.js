@@ -15,6 +15,8 @@ import categoriesReducer from './store/reducers/categories';
 import newPoemReducer from './store/reducers/newPoem';
 import authReducer from './store/reducers/auth';
 
+import './index.css';
+
 const rootReducer = combineReducers({
     recommendedPoems: recommendedPoemsReducer,
     poems: poemsReducer,
