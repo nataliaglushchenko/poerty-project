@@ -11,7 +11,6 @@ describe('auth reducer', () => {
             isAuthenticated: false
         });
     });
-
     it('should get userData upon login', () => {
         expect(reducer({
             showAuthForm: false,

@@ -20,13 +20,13 @@ const CategoryView = (props) => {
     return (
         <div className={classes.CategoryView}>
             <div className={classes.Title}>
-                <Link to={`/themes/${props.categorySlug}`}>{props.categoryTitle}</Link> 
+                <Link to={`/categories/${props.categorySlug}`}>{props.categoryTitle}</Link> 
             </div>
             <ul className={classes.Content}>
                 {items}
             </ul> 
             <nav  className={classes.ShowAll}>
-                <Link to={`/themes/${props.categorySlug}`}>>>></Link>
+                <Link to={`/categories/${props.categorySlug}`}>>>></Link>
             </nav>            
         </div>     
     );

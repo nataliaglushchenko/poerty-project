@@ -14,7 +14,6 @@ describe('<NavigationItems />', () => {
         wrapper = shallow(<NavigationItems onFetchCategories={() => {}} onFetchAuthors={() => {}}/>);
     });
     it('renders <NavigationItem link="/authors" /> element', () => {
-        // wrapper.setProps({isAuthorsLoaded: true, authors: []});
         expect(wrapper.contains(
             <NavigationItem 
                 link="/authors" 

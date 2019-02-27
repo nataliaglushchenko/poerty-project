@@ -90,7 +90,6 @@ export default class Overview extends Component {
                 </div>
             );
         }
-        
         return overview;
     }
 }

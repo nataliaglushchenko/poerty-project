@@ -2,7 +2,6 @@ import React, { Component} from 'react';
 import { Link } from 'react-router-dom';
 
 import Spinner from '../../components/UI/Spinner/Spinner';
-import Aux from '../../hoc/Auxillary/Auxillary';
 import classes from './Poem.module.css';
 
 import PropTypes from 'prop-types';
@@ -45,47 +44,38 @@ export default class Poem extends Component {
             return <Spinner />;
         }
 
-            
         if(!this.props.isAuthenticated) {
-            return <div>
-                <div style={{textAlign: "center", padding: "30px"}}>Please authenticate to read full text!</div>
-                <Link  
-                    className={classes.GoBackButton} 
-                    to='/'
-                    >Go to homepage
-                </Link>
+            return (
+                <div>
+                    <div style={{textAlign: "center", padding: "30px"}}>Please authenticate to read full text!</div>
+                    <Link  
+                        className={classes.GoBackButton} 
+                        to='/'
+                        >Go to homepage
+                    </Link>
                 </div>
+            );
         }
         
         let poem = null;
         
         if(this.props.poemIsLoaded && this.props.isAuthenticated){
             poem = <div className={classes.Poem}>
-            <h2>{this.props.poem.title}</h2>
-            <div>
-                <i>by {this.props.poem.author}</i>
-            </div>
-            <pre style={{width: "100%", margin: "30px 0px"}}>
-                {this.props.poem.content}
-            </pre>
-            <Link  
+                <h2>{this.props.poem.title}</h2>
+                <div>
+                    <i>by {this.props.poem.author}</i>
+                </div>
+                <pre style={{width: "100%", margin: "30px 0px"}}>
+                    {this.props.poem.content}
+                </pre>
+                <Link  
                     className={classes.GoBackButton} 
                     to={`/categories/${this.props.poem.category.slug}`}
                     >Go to all {this.props.poem.category.name.toUpperCase()} POEMS
-                </Link>
-            
-        </div>;
+                </Link>  
+            </div>
         }  
-
-     
-
-        return (
-            <Aux>
-               
-                {poem}
-                
-            </Aux>
-        );
+        return poem;
     }
 }
 

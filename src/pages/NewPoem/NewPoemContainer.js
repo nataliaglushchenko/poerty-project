@@ -4,7 +4,6 @@ import * as actions from '../../store/actions';
 
 import NewPoem from './NewPoem';
 
-
 const mapStateToProps = state => {
     return {
         isAuthorsLoaded: state.authors.isLoaded,

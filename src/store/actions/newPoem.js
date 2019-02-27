@@ -25,7 +25,6 @@ export const createNewPoemFail = ( errorMessage ) => {
 export const createNewPoem = ( newPoem ) => {
     return dispatch => {
         dispatch(createNewPoemStart());
-        // axios.post('/poems.json', newPoem)
             fetch('http://localhost:4000/new-poem',{
                 method: "POST",
                 headers: {
@@ -48,7 +47,6 @@ export const createNewPoem = ( newPoem ) => {
             });
     };
 };
-
 
 export const addNewAuthorStart = () => {
     return {

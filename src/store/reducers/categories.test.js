@@ -9,7 +9,6 @@ describe('categories reducer', () => {
             isLoaded: false
         });
     });
-
     it('should fetch categories upon fetchCategories call', () => {
         expect(reducer({
             categories: [],

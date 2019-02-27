@@ -5,7 +5,6 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import { Library } from './Library';
 import ContentsPreview from './ContentsPreview';
-import classes from './Library.module.css';
 
 configure({adapter: new Adapter()});
 

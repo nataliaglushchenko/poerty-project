@@ -2,20 +2,26 @@ import React, { Component } from 'react';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Library from './pages/Library/';
-import Layout from './hoc/Layout/';
-import Authors from './pages/Authors/';
-import NewPoem from './pages/NewPoem';
+import Library from './pages/Library';
+import Layout from './hoc/Layout';
 import * as actions from './store/actions';
 
 import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
 const AsyncPoem = asyncComponent(() => {
-  return import('./pages/Poem/');
+  return import('./pages/Poem');
 });
 
 const AsyncOverview = asyncComponent(() => {
-  return import('./pages/Overview/');
+  return import('./pages/Overview');
+});
+
+const AsyncNewPoem = asyncComponent(() => {
+  return import('./pages/NewPoem');
+});
+
+const AsyncAuthors = asyncComponent(() => {
+  return import('./pages/Authors');
 });
 
 class App extends Component {
@@ -29,10 +35,10 @@ class App extends Component {
       <div>
         <Layout>
           <Switch>
-            <Route path="/authors" component={Authors} />
+            <Route path="/authors" component={AsyncAuthors} />
             <Route path="/categories/:slug" component={AsyncOverview} />
             <Route path="/poems/:id" exact component={AsyncPoem} />
-            <Route path="/new" exact component={NewPoem} />
+            <Route path="/new" exact component={AsyncNewPoem} />
             <Route path="/" exact component={Library} />
             <Route render={()=><h1>Not Found</h1>} />
           </Switch>

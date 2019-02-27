@@ -65,7 +65,6 @@ export const authentication = (authData) => {
     };
 };
 
-
 export const regStart = () => {
     return {
         type: actionTypes.REG_START
@@ -85,7 +84,6 @@ export const regFailure = (errorMessage) => {
         errorMessage: errorMessage
     };
 };
-
 
 export const registration = (regData) => {
     return dispatch => {
@@ -164,8 +162,6 @@ export const getUserDataStart = () => {
     };
 };
 
-
-
 export const getUserDataSuccess = (userData) => {
     return {
         type: actionTypes.GET_USER_DATA_SUCCESS,
@@ -196,7 +192,6 @@ export const getUserData = () => {
                 }
                 return res.json();
             })
-            
             .then(res=>{
             dispatch(getUserDataSuccess(res));
         })

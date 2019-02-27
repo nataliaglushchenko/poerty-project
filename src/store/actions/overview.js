@@ -34,7 +34,6 @@ export const fetchOverview = (categorySlug) => {
     };
 };
 
-
 export const fetchPoemPreviewStart = () => {
     return {
         type: actionTypes.FETCH_POEM_PREVIEW_START
