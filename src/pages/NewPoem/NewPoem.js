@@ -10,12 +10,21 @@ const propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   isCategoriesLoaded: PropTypes.bool.isRequired,
   isAuthorsLoaded: PropTypes.bool.isRequired,
-  authors: PropTypes.array.isRequired,
-  categories: PropTypes.array.isRequired,
+  authors: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string
+  })),
+  categories: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string
+  })),
   onSubmitNewAuthor: PropTypes.func.isRequired,
   onSubmitNewCategory: PropTypes.func.isRequired,
   onSubmitNewPoem: PropTypes.func.isRequired,
-  error: PropTypes.object
+  error: PropTypes.shape({
+    author: PropTypes.string,
+    category: PropTypes.string,
+    newPoem: PropTypes.string
+  })
 };
 
 const defaultProps = {

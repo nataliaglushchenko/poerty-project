@@ -10,8 +10,15 @@ const propTypes = {
     onFetchAuthors: PropTypes.func.isRequired,
     isCategoriesLoaded: PropTypes.bool.isRequired,
     isAuthorsLoaded: PropTypes.bool.isRequired,
-    categories: PropTypes.array.isRequired,
-    authors: PropTypes.array.isRequired
+    categories: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        slug: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired
+    })).isRequired,
+    authors: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired
+    })).isRequired
 };
 
 const defaultProps = {

@@ -10,7 +10,18 @@ const propTypes = {
     onFetchRecommendedPoems: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
     isRecommendedPoemsLoaded: PropTypes.bool.isRequired,
-    recommendedPoems: PropTypes.array.isRequired
+    recommendedPoems: PropTypes.arrayOf(PropTypes.shape({
+            category: PropTypes.shape({
+                id: PropTypes.number.isRequired,
+                name: PropTypes.string.isRequired,
+                slug: PropTypes.string.isRequired
+            }),
+            topPoems: PropTypes.arrayOf(PropTypes.shape({
+                    poemId: PropTypes.number.isRequired,
+                    author: PropTypes.string.isRequired,
+                    title: PropTypes.string.isRequired
+            }).isRequired)
+        }).isRequired)
 };
 
 const defaultProps = {

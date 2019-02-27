@@ -8,7 +8,15 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     onFetchPoem: PropTypes.func.isRequired,
-    poem: PropTypes.object.isRequired,
+    poem: PropTypes.shape({
+        title: PropTypes.string,
+        author: PropTypes.string,
+        content: PropTypes.string,
+        category: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            slug: PropTypes.string.isRequired
+        }).isRequired
+    }).isRequired,
     loading: PropTypes.bool.isRequired,
     poemIsLoaded: PropTypes.bool.isRequired,
     isAuthenticated: PropTypes.bool.isRequired

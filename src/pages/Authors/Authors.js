@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 
 import classes from './Authors.module.css';
 
+
 const propTypes = {
-    authors: PropTypes.array.isRequired
+    authors: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired
+    }).isRequired)
 };
 
 const defaultProps = {

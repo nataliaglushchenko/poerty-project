@@ -9,9 +9,23 @@ const propTypes = {
     onFetchCategoryOverview: PropTypes.func.isRequired,
     isOverviewLoaded: PropTypes.bool.isRequired,
     loading: PropTypes.bool,
-    overview: PropTypes.object,
+    overview: PropTypes.shape({
+        poems: PropTypes.arrayOf(PropTypes.shape({
+            poemId: PropTypes.number,
+            author: PropTypes.string,
+            title: PropTypes.string
+        })),
+        category: PropTypes.shape({
+            name: PropTypes.string
+        })
+    }),
     isPoemPreviewLoaded: PropTypes.bool,
-    poemPreview: PropTypes.object,
+    poemPreview: PropTypes.shape({
+        id: PropTypes.number,
+        title: PropTypes.string,
+        author: PropTypes.string,
+        content: PropTypes.string
+    }),
     overviewLoading: PropTypes.bool
 };
 

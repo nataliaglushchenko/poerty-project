@@ -7,10 +7,11 @@ import Aux from '../../hoc/Auxillary/Auxillary';
 
 import classes from './Library.module.css';
 
-
 const propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    userData: PropTypes.object
+    userData: PropTypes.shape({
+        userName: PropTypes.string
+    })
 };
 
 const defaultProps = {
