@@ -1,0 +1,21 @@
+.Poem {
+    padding: 0px 50px;
+    text-align: start;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.GoBackButton{
+    border: 1px solid #ccc;
+    background-color: #eee;
+    box-shadow: #f1f1f1;
+    border-radius: 5px;
+    margin: 10px 0px;
+    padding: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.GoBackButton:hover{
+    background-color: #ccc;
+}

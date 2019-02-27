@@ -1,0 +1,19 @@
+.ContentsPreview {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: center;  
+    padding: 30px; 
+}
+
+@media (min-width: 500px) {
+    .ContentsPreview {
+        display: flex;
+        justify-content: flex-start;
+        align-items: stretch;
+        flex-direction: row;
+        text-align: center;  
+        padding: 30px; 
+        
+    }
+}

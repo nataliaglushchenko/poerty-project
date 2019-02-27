@@ -1,0 +1,12 @@
+.Library {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.Greeting {
+    text-align: center;
+    font-size: 15px;
+}

@@ -1,0 +1,84 @@
+.Overview{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ContentsBlock{
+    flex-shrink: 0;
+    margin: 0px 20px;
+    height: 100%;
+    width: 300px;
+    box-sizing: border-box;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    padding: 0;
+    border-radius: 8px;
+}
+
+.ContentsBlock .Title {
+    width: 100%;
+    text-align: center;
+    background-color: rgba(12, 34, 43, 0.856);
+    color: white;
+    padding: 10px 0px;
+    margin: 0px;
+}
+
+.ContentsBlock .Content {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: start;
+    height: 100%;
+}
+
+.OverviewItem {
+    padding: 16px 10px;
+    color: rgb(12, 34, 43);
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    cursor: pointer;
+}
+
+.OverviewItem:hover {
+    background-color: #f1f1f1;
+}
+
+.PoemPreview {
+    padding: 0px 30px;
+    text-align: start;
+}
+.PoemContent,
+.PoemTitle {
+    padding: 0px;
+    margin: 0px;
+}
+
+.ContinueButton{
+    border: 1px solid #ccc;
+    background-color: #eee;
+    box-shadow: #f1f1f1;
+    border-radius: 5px;
+    margin: 10px 0px;
+    padding: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.ContinueButton:hover{
+    background-color: #ccc;
+}
+
+@media (min-width: 800px){
+    .Overview{
+        flex-direction: row;
+    }
+    .PoemPreview{
+        padding: 0px 30px;
+    }
+}

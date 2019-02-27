@@ -1,0 +1,87 @@
+/* .CategoryView {
+    width: 250px;
+    height: 90%;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 10px;
+    border-radius: 8px;
+} */
+
+/* .Title {
+    width: 100%;
+    padding: 10px 0px;
+    margin: 0px;
+    border-radius: 8px 8px 0 0;
+} */
+
+/* .Content {
+   display: none;
+} */
+
+.CategoryView {
+    width: 300px;
+    height: 90%;
+    box-sizing: border-box;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    padding: 0;
+    margin: 10px;
+    border-radius: 8px;
+}
+
+.Title {
+    width: 100%;
+    background-color: rgba(12, 34, 43, 0.856);
+    color: white;
+    padding: 10px 0px;
+    margin: 0px;
+}
+
+.Title a,
+.Title a:active{
+    text-decoration: none;
+    color:white;
+}
+
+.ShowAll {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    color:  rgb(0, 0, 0);
+    text-align: center;
+}
+.ShowAll a {
+    padding: 10px 0px;
+    color: rgb(12, 34, 43);
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+
+.ShowAll a:hover,
+.ShowAll a:active {
+    color: rgb(12, 34, 43);
+    background-color: rgba(141, 206, 231, 0.808);
+    cursor: pointer;
+}
+
+.Content {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: start;
+    height: 100%;
+}
+
+
+@media (min-width: 700px) {
+    .CategoryView {
+        min-width: 300px;
+    }
+    
+    
+}
