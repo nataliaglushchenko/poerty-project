@@ -26,6 +26,7 @@ export {
 } from './newPoem';
 
 export {
+    errorReset,
     authentication,
     registration,
     authInit,

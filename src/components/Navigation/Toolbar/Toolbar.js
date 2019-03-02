@@ -14,7 +14,8 @@ const propTypes = {
     onLogout: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     showAuthForm: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.string
+    loginErrorMessage: PropTypes.string,
+    registrationErrorMessage: PropTypes.string
 };
 
 const defaultProps = {
@@ -38,7 +39,9 @@ export class Toolbar extends Component {
                     <AuthForm 
                         onAuth={this.props.onAuth}
                         onRegistration={this.props.onRegistration}
-                        error={this.props.errorMessage}
+                        loginErrorMessage={this.props.loginErrorMessage}
+                        registrationErrorMessage={this.props.registrationErrorMessage}
+                        errorReset={this.props.onErrorReset}
                     />
                 </Modal>
             </header>

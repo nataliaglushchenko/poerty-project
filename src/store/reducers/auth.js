@@ -3,19 +3,26 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     showAuthForm: false,
     userData: {},
-    errorMessage: null,
+    loginErrorMessage: '',
+    registrationErrorMessage: '',
     authentication: false,
     isAuthenticated: false
 };
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case actionTypes.ERROR_RESET: 
+            return {
+                ...state,
+                loginErrorMessage: '',
+                registrationErrorMessage: ''
+            }
         case actionTypes.AUTH_INIT:
             return {
                 ...state,
                 showAuthForm: true,
                 isAuthenticated: false,
-                errorMessage: null
+                loginErrorMessage: ''
             };
         case actionTypes.AUTH_CANCEL:
             return {
@@ -28,7 +35,7 @@ const reducer = (state = initialState, action) => {
                 showAuthForm: true,
                 authentication: true,
                 isAuthenticated: false,
-                errorMessage: null
+                loginErrorMessage: ''
             };
         case actionTypes.AUTH_SUCCESS:
             return {
@@ -39,14 +46,14 @@ const reducer = (state = initialState, action) => {
                 },
                 authentication: false,
                 isAuthenticated: true,
-                errorMessage: null
+                loginErrorMessage: ''
             };
         case actionTypes.AUTH_FAILURE: 
             return {
                 ...state,
                 showAuthForm: true,
                 authentication: false,
-                errorMessage: action.errorMessage
+                loginErrorMessage: action.errorMessage
             };
         case actionTypes.LOGOUT_SUCCESS:
             return {
@@ -57,12 +64,12 @@ const reducer = (state = initialState, action) => {
                 showAuthForm: false,
                 authentication: false,
                 isAuthenticated: false,
-                errorMessage: null
+                loginErrorMessage: ''
             };
         case actionTypes.LOGOUT_FAILURE:
             return {
                 ...state,
-                errorMessage: action.error
+                logoutErrorMessage: action.error
             };
         case actionTypes.GET_USER_DATA_SUCCESS:
             return {
@@ -71,20 +78,19 @@ const reducer = (state = initialState, action) => {
                     userName: action.userName
                 },
                 isAuthenticated: true,
-                errorMessage: null
+                loginErrorMessage: ''
             };
         case actionTypes.GET_USER_DATA_FAILURE: 
             return {
                 ...state,
-                isAuthenticated: false,
-                errorMessage: action.errorMessage
+                isAuthenticated: false
             };
         case actionTypes.REG_START:
             return {
                 ...state,
                 showAuthForm: true,
                 isAuthenticated: false,
-                errorMessage: null
+                registrationErrorMessage: ''
             };
         case actionTypes.REG_SUCCESS:
             return {
@@ -94,13 +100,13 @@ const reducer = (state = initialState, action) => {
                     userName: action.userName
                 },
                 isAuthenticated: true,
-                errorMessage: null
+                registrationErrorMessage: ''
             };
         case actionTypes.REG_FAILURE: 
             return {
                 ...state,
                 showAuthForm: true,
-                errorMessage: action.errorMessage
+                registrationErrorMessage: action.errorMessage
             };
         default: 
             return state;

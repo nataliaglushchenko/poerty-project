@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
+import * as yup from 'yup';
 import PropTypes from 'prop-types';
 
 import Aux from '../../hoc/Auxillary/Auxillary';
@@ -20,25 +21,163 @@ const AUTH_STATE = {
     REGISTRATION: 'registration'
 };
 
+const loginSchema = yup.object().shape({
+    userName: yup
+        .string()
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required!'),
+    password: yup
+        .string()
+        .min(4, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required!')
+});
+
+const registrationSchema = yup.object().shape({
+    userName: yup
+        .string()
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required!'),
+    password: yup
+        .string()
+        .min(4, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required!'),
+    passwordCheck: yup
+        .string()
+        .oneOf([yup.ref('password'), null], 'Passwords do not match!')
+        .required('Required!')
+});
+
 class AuthForm extends Component {
     state = {
         authState: AUTH_STATE.LOGIN
     }
 
     handleClickLogin = () => {
-        if(this.state.authMode !== AUTH_STATE.LOGIN){
-            this.setState({ authState: AUTH_STATE.LOGIN });
+        if(this.state.authState !== AUTH_STATE.LOGIN){
+            this.setState({ authState: AUTH_STATE.LOGIN });   
+            this.props.errorReset();         
         } 
     }
 
     handleClickRegistration = () => {
-        if(!this.state.isRegistrationMode){
+        if(this.state.authState !== AUTH_STATE.REGISTRATION){
             this.setState({ authState: AUTH_STATE.REGISTRATION });
+            this.props.errorReset();
         } 
     }
 
+    handleSubmit = (values, setSubmitting) => {
+        this.state.authState === AUTH_STATE.LOGIN && this.props.onAuth(values);
+        this.state.authState === AUTH_STATE.REGISTRATION && this.props.onRegistration(values);
+        return setSubmitting(false);
+    }
+
     render() {
-        const sumitButtonText = this.state.authState === AUTH_STATE.LOGIN ? 'SIGN IN' : 'SIGN UP';
+        let authForm;
+        if(this.state.authState === AUTH_STATE.LOGIN) {
+            authForm = <Formik
+            initialValues={{ userName: '', password: ''}}
+            onSubmit={(values, { setSubmitting }) => {
+                this.handleSubmit(values, setSubmitting);
+            }}
+            validationSchema={loginSchema}
+        >
+            {({
+        values, 
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting
+        }) => {
+            return (
+                <form  
+                    className={classes.Form}
+                    onSubmit={handleSubmit}
+                >
+                    <div>User Name: <span className={classes.Error}>{errors.userName && touched.userName && errors.userName}</span></div>
+                    <input className={classes.Input}
+                        type="text"
+                        name="userName"
+                        value={values.userName}
+                        onChange={handleChange}
+                        onBlur={handleBlur} 
+                    />
+                    <div>Password: <span className={classes.Error}>{errors.password && touched.password && errors.password}</span></div>
+                    <input className={classes.Input}
+                        type="password" 
+                        name="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                    />
+                    <button type="submit" disabled={isSubmitting}>LOG IN</button> 
+                    <div style={{textAlign: "center", color: "red"}}>{this.props.loginErrorMessage}</div>
+                </form>
+            );
+        } 
+        }
+        </Formik>;
+        }
+        if(this.state.authState === AUTH_STATE.REGISTRATION) {
+            authForm = <Formik
+            initialValues={{ userName: '', password: '', passwordCheck: ''}}
+            onSubmit={(values, { setSubmitting }) => {
+                this.handleSubmit(values, setSubmitting);
+            }}
+            validationSchema={registrationSchema}
+        >
+            {({
+        values, 
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting
+        }) => {
+            return (
+                <form  
+                    className={classes.Form}
+                    onSubmit={handleSubmit}
+                >
+                    <div>User Name: <span className={classes.Error}>{errors.userName && touched.userName && errors.userName}</span></div>
+                    <input className={classes.Input}
+                        type="text"
+                        name="userName"
+                        value={values.userName}
+                        onChange={handleChange}
+                        onBlur={handleBlur} 
+                    />
+                    <div>Password: <span className={classes.Error}>{errors.password && touched.password && errors.password}</span></div>
+                    <input className={classes.Input}
+                        type="password" 
+                        name="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                    />
+                    <div> Repeat Password: <span className={classes.Error}>{errors.passwordCheck && touched.passwordCheck && errors.passwordCheck}</span></div>
+                    <input className={classes.Input}
+                        type="password" 
+                        name="passwordCheck"
+                        value={values.passwordCheck}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                    />
+                    <button type="submit" disabled={isSubmitting}>SIGN UP</button> 
+                    <div style={{textAlign: "center", color: "red"}}>{this.props.registrationErrorMessage}</div>
+                </form>
+            );
+        }}
+        </Formik>;
+        }
+
         return (
             <Aux>
                 <div className={classes.ToggleAuthState}>
@@ -53,74 +192,7 @@ class AuthForm extends Component {
                         SIGN UP
                     </div>
                 </div>
-                <Formik
-                    initialValues={{ userName: '', password: '', passwordCheck: '' }}
-                    onSubmit={(values, { setSubmitting }) => {
-                    if(this.state.authState === AUTH_STATE.LOGIN) {
-                        this.props.onAuth(values);
-                    } 
-                    if(this.state.authState === AUTH_STATE.REGISTRATION) {
-                        this.props.onRegistration(values);
-                    } 
-                    setSubmitting(false);
-                    }}
-                    validate={values => {
-                    let errors = {};
-                    const minLength = 4;
-                    if (!values.userName) { errors.userName = 'Required'; }
-                    if (!values.password) { errors.password = 'Required'; }
-                        else if (values.password.length < minLength) { errors.password = "Too small"; }
-                    if (this.state.authState === AUTH_STATE.REGISTRATION && !values.passwordCheck) { errors.passwordCheck = 'Required'; }
-                    else if (this.state.authState === AUTH_STATE.REGISTRATION && values.passwordCheck !== values.password) { errors.passwordCheck = "Passwords do not match"; }
-                    return errors;
-                    }}
-                >
-                    {({
-                values, 
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting
-                }) => {
-                    return (
-                        <form  
-                            className={classes.Form}
-                            onSubmit={handleSubmit}
-                        >
-                            <div>User Name: <span style={{color: "red"}}>{errors.userName && touched.userName && errors.userName}</span></div>
-                            <input 
-                                type="text"
-                                name="userName"
-                                value={values.userName}
-                                onChange={handleChange}
-                                onBlur={handleBlur} 
-                            />
-                            <div>Password: <span style={{color: "red"}}>{errors.password && touched.password && errors.password}</span></div>
-                            <input 
-                                type="password" 
-                                name="password"
-                                value={values.password}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            <div  style={this.state.authState === AUTH_STATE.LOGIN ? {display: "none"} : null}> Repeat Password: <span style={{color: "red"}}>{errors.passwordCheck && touched.passwordCheck && errors.passwordCheck}</span></div>
-                            <input style={this.state.authState === AUTH_STATE.LOGIN ? {display: "none"} : null}
-                                type="password" 
-                                name="passwordCheck"
-                                value={values.passwordCheck}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            <button type="submit" disabled={isSubmitting}>
-                                {sumitButtonText}</button> 
-                            <div style={{textAlign: "center", color: "red"}}>{this.props.error}</div>
-                        </form>
-                    );
-                } 
-                }
-                </Formik>
+                {authForm}
             </Aux>
         )
     }  

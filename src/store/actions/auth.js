@@ -1,5 +1,11 @@
 import * as actionTypes from './actionTypes';
 
+export const errorReset = () => {
+    return {
+        type: actionTypes.ERROR_RESET
+    };
+};
+
 export const authInit = () => {
     return {
         type: actionTypes.AUTH_INIT

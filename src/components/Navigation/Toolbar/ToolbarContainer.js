@@ -8,7 +8,8 @@ const mapStateToProps = state => {
         userData: state.auth.userData,
         authentication: state.auth.authentication,
         isAuthenticated: state.auth.isAuthenticated,
-        errorMessage: state.auth.errorMessage,
+        registrationErrorMessage: state.auth.registrationErrorMessage,
+        loginErrorMessage: state.auth.loginErrorMessage,
         showAuthForm: state.auth.showAuthForm
     }
 }
@@ -19,7 +20,8 @@ const mapDispatchToProps = dispatch => {
         onAuthCancel: () => dispatch(actions.authCancel()),
         onAuth: (authData) => dispatch(actions.authentication(authData)),
         onRegistration: (regData) => dispatch(actions.registration(regData)),
-        onLogout: () => dispatch(actions.logout())
+        onLogout: () => dispatch(actions.logout()),
+        onErrorReset: () => dispatch(actions.errorReset())
     }
 }
 
