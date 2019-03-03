@@ -2,11 +2,17 @@ import * as actionTypes from './actionTypes';
 
 import * as actions from './index';
 
+export const resetState = () => {
+    return {
+        type: actionTypes.RESET_STATE
+    };
+};
+
 export const createNewPoemStart = () => {
     return {
         type: actionTypes.CREATE_NEW_POEM_START
-    }
-}
+    };
+};
 
 export const createNewPoemSuccess = ( newPoem ) => {
     return {
@@ -15,14 +21,14 @@ export const createNewPoemSuccess = ( newPoem ) => {
     };
 };
 
-export const createNewPoemFail = ( errorMessage ) => {
+export const createNewPoemFailure = ( errorMessage ) => {
     return {
-        type: actionTypes.CREATE_NEW_POEM_FAIL,
+        type: actionTypes.CREATE_NEW_POEM_FAILURE,
         errorMessage: errorMessage
     };
 };
 
-export const createNewPoem = ( newPoem ) => {
+export const createNewPoem = (newPoem) => {
     return dispatch => {
         dispatch(createNewPoemStart());
             fetch('http://localhost:4000/new-poem',{
@@ -38,12 +44,20 @@ export const createNewPoem = ( newPoem ) => {
                     content: newPoem.content
                   })
             })
-            .then(res => res.json())
-            .then( res => {
-               dispatch(createNewPoemSuccess( res.newPoem ));
+            .then(res => {
+                if (!res.ok) {
+                    return res.json()
+                        .then(errorData => {
+                            throw new Error(errorData.message);
+                        });
+                }
+                return res.json();
+            })
+            .then(res => {
+               dispatch(createNewPoemSuccess(res));
             })
             .catch(error => {
-                dispatch( createNewPoemFail( error ));
+                dispatch(createNewPoemFailure(error.message));
             });
     };
 };
@@ -51,8 +65,8 @@ export const createNewPoem = ( newPoem ) => {
 export const addNewAuthorStart = () => {
     return {
         type: actionTypes.ADD_NEW_AUTHOR_START
-    }
-}
+    };
+};
 
 export const addNewAuthorSuccess = () => {
     return {

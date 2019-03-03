@@ -22,7 +22,8 @@ export {
 export {
     createNewPoem,
     addNewAuthor,
-    addNewCategory
+    addNewCategory,
+    resetState
 } from './newPoem';
 
 export {

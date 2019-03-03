@@ -40,6 +40,15 @@
     background-color: rgb(177, 177, 177);
 }
 
+.Poem {
+    margin: 20px 70px;
+    padding: 10px 20px;
+    text-align: start;
+    font-family: "Times New Roman", Times, serif;
+    border: 1px solid gray;
+    border-radius: 6px;
+}
+
 @media (min-width: 600px) {
     .Form {
         width: 500px;

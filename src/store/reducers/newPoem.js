@@ -11,6 +11,15 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case actionTypes.RESET_STATE:
+            return {
+                newPoem: {},
+                submitting: false,
+                submitted: false,
+                authorSubmitting: false,
+                authorSubmitted: false,
+                error: {}
+            };
         case actionTypes.CREATE_NEW_POEM_START:
             return {
                 ...state,
@@ -22,16 +31,17 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 newPoem: action.newPoem,
                 submitting: false,
-                sumbitted: true
+                submitted: true
             };
-        case actionTypes.CREATE_NEW_POEM_FAIL: 
+        case actionTypes.CREATE_NEW_POEM_FAILURE: 
             return {
                 ...state,
                 submitting: false,
                 error: {
                     ...state.error,
                     newPoem: action.errorMessage
-                }
+                },
+                newPoem: {}
             };
         case actionTypes.ADD_NEW_AUTHOR_START:
             return {

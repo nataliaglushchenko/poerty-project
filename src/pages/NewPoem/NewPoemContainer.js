@@ -11,7 +11,9 @@ const mapStateToProps = state => {
         isCategoriesLoaded: state.categories.isLoaded,
         categories: state.categories.categories,
         isAuthenticated: state.auth.isAuthenticated,
-        error: state.newPoem.error
+        error: state.newPoem.error,
+        newPoem: state.newPoem.newPoem,
+        isNewPoemSubmitted: state.newPoem.submitted
     }
 }
 const mapDispatchToProps = dispatch => {
@@ -19,6 +21,7 @@ const mapDispatchToProps = dispatch => {
         onSubmitNewPoem: (newPoem) => dispatch(actions.createNewPoem(newPoem)),
         onSubmitNewAuthor: (author) => dispatch(actions.addNewAuthor(author)),
         onSubmitNewCategory: (category) => dispatch(actions.addNewCategory(category)),
+        resetState: () => dispatch(actions.resetState())
     }
 }
 

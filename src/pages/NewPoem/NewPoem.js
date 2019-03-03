@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
+import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
 
@@ -25,6 +26,15 @@ const propTypes = {
     author: PropTypes.string,
     category: PropTypes.string,
     newPoem: PropTypes.string
+  }),
+  resetState: PropTypes.func.isRequired,
+  isNewPoemSubmitted: PropTypes.bool.isRequired,
+  newPoem: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    author: PropTypes.string,
+    category: PropTypes.string,
+    content: PropTypes.string
   })
 };
 
@@ -54,11 +64,48 @@ const newPoemSchema = yup.object().shape({
 })
 
 export class NewPoem extends Component {
-  render() {
+  componentDidMount(){
+    this.props.resetState();
+  };
 
-    if(!this.props.isAuthenticated) return <div style={{textAlign: "center", padding: "30px"}}>You can create a Poem only if you are authenticated!</div>;
+  componentDidUpdate(){
+    if(this.props.isNewPoemSubmitted){
+      this.scrollToNewPoem();
+    }
+  }
+  scrollToNewPoem = () => {
+    this.newPoem.scrollIntoView({ behavior: "smooth" });
+  }
+
+  render() {
+    if(!this.props.isAuthenticated){
+      return (
+        <div style={{textAlign: "center", padding: "30px"}}>
+          You can create a Poem only if you are authenticated!
+        </div>
+      );
+    }
     if(!this.props.isCategoriesLoaded || !this.props.isAuthorsLoaded) {
       return <Spinner />;
+    }
+
+    let newPoem = null;
+    if(this.props.isNewPoemSubmitted){
+      newPoem = <div>
+        <h4 style={{textAlign: "center"}}>You have successfully submitted your Poem!</h4>
+        <div className={classes.Poem}>
+          <h3>{this.props.newPoem.title}</h3>
+          <div>
+              <i>by {this.props.newPoem.author}</i>
+          </div>
+          <pre style={{width: "100%", margin: "30px 0px"}}>
+              {this.props.newPoem.content}
+          </pre>
+        </div>
+        <div style={{padding: "20px", textAlign: "center"}}>
+          <Link  to='/'>CHECK OUT OTHER POEMS</Link>
+        </div>
+      </div>      
     }
 
     return (
@@ -93,7 +140,6 @@ export class NewPoem extends Component {
                 />            
                 <button type="submit" disabled={isSubmitting}>Submit</button>
                 <div style={{ color: "red"}}>{this.props.error.author}</div>
-
               </form>
               )
             }}
@@ -137,6 +183,7 @@ export class NewPoem extends Component {
           initialValues={{ title: '', authorId: '', categoryId: '', content: '' }}
           onSubmit={(values, { setSubmitting }) => {
             this.props.onSubmitNewPoem(values);
+            this.scrollToNewPoem();
             setSubmitting(false);
           }}
           validationSchema={newPoemSchema}
@@ -202,6 +249,8 @@ export class NewPoem extends Component {
             )
           }}
         </Formik>
+        <div ref={(el) => { this.newPoem = el;}}></div>
+        {newPoem}         
       </div>    
     )
   }
