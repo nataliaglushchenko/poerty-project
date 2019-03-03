@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
+import * as yup from 'yup';
 import PropTypes from 'prop-types';
 
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -31,6 +32,27 @@ const defaultProps = {
 
 };
 
+const authorSchema = yup.object().shape({
+  authorName: yup
+      .string()
+      .min(2, 'Too Short!')
+      .required('Author Name is not valid!')
+});
+
+const categorySchema = yup.object().shape({
+  categoryName: yup
+      .string()
+      .min(2, 'Too Short!')
+      .required('Category is not valid!')
+});
+
+const newPoemSchema = yup.object().shape({
+  title: yup.string().required('Required!'),
+  authorId: yup.number().required('Required!'),
+  categoryId: yup.number().required('Required!'),
+  content: yup.string().min(10, 'Too short!')
+})
+
 export class NewPoem extends Component {
   render() {
 
@@ -48,13 +70,7 @@ export class NewPoem extends Component {
               this.props.onSubmitNewAuthor(values);
               setSubmitting(false);
             }}
-            validate={values => {
-              let errors = {};
-              const minLength = 2;
-              if (!values.authorName) { errors.authorName = 'Required'; }
-                else if (values.authorName.length <= minLength) { errors.authorName = "Too small"; }
-              return errors;
-              }}
+            validationSchema={authorSchema}
           >
           {({
             values, 
@@ -88,13 +104,7 @@ export class NewPoem extends Component {
               this.props.onSubmitNewCategory(values);
               setSubmitting(false);
             }}
-            validate={values => {
-              let errors = {};
-              const minLength = 2;
-              if (!values.categoryName) { errors.categoryName = 'Required'; }
-                else if (values.categoryName.length <= minLength) { errors.categoryName = "Too small"; }
-              return errors;
-              }}
+            validationSchema={categorySchema}
           >
           {({
             values, 
@@ -129,16 +139,7 @@ export class NewPoem extends Component {
             this.props.onSubmitNewPoem(values);
             setSubmitting(false);
           }}
-          validate={values => {
-            let errors = {};
-            const minLength = 10;
-            if (!values.title) { errors.title = 'Required'; }
-            if (!values.authorId) { errors.authorId = 'Required'; }
-            if (!values.categoryId) { errors.categoryId = 'Required'; }
-            if (!values.content) { errors.content = 'Required'; } 
-              else if (values.content.length <= minLength) { errors.content = "Too small"; }
-            return errors;
-            }}
+          validationSchema={newPoemSchema}
         >
         {({
           values, 
