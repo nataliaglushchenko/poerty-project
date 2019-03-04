@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { Toolbar } from './Toolbar';
 import * as actions from '../../../store/actions';
@@ -25,4 +26,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Toolbar));

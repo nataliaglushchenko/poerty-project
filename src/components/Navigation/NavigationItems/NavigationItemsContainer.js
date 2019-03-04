@@ -1,4 +1,6 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import { NavigationItems } from './NavigationItems';
 
 import * as actions from '../../../store/actions/';
@@ -19,4 +21,4 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavigationItems);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavigationItems));

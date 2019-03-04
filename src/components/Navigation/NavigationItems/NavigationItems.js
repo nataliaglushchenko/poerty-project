@@ -54,22 +54,29 @@ export class NavigationItems extends Component {
         }
         return (
             <ul className={classes.NavigationItems}>
+                <NavigationItem
+                    link="/home" 
+                    exact
+                    >HOME
+                </NavigationItem>
                 <div className={classes.dropdown}>
-                    <NavigationItem
-                        link="/" 
-                        exact
-                        className={classes.dropdownBtn}
-                        >CATEGORIES</NavigationItem>
+                    <div className={classes.dropdownBtn}>
+                        <NavigationItem
+                            link="/categories" 
+                            >CATEGORIES
+                        </NavigationItem>
+                    </div>
                     <div className={classes.dropdownContent}>
                         {categories}
                     </div>
                 </div>
                 <div className={classes.dropdown}>
-                    <NavigationItem
-                        link="/authors" 
-                        exact
-                        className={classes.dropdownBtn}
-                        >AUTHORS</NavigationItem>
+                    <div className={classes.dropdownBtn}>
+                        <NavigationItem
+                            link="/authors"
+                            >AUTHORS
+                        </NavigationItem>
+                    </div>
                     <div className={classes.dropdownContent}>
                         {authors}
                     </div>

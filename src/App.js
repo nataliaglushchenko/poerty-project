@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Route, Switch } from 'react-router-dom';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Library from './pages/Library';
@@ -12,16 +12,16 @@ const AsyncPoem = asyncComponent(() => {
   return import('./pages/Poem');
 });
 
-const AsyncOverview = asyncComponent(() => {
-  return import('./pages/Overview');
-});
-
 const AsyncNewPoem = asyncComponent(() => {
   return import('./pages/NewPoem');
 });
 
 const AsyncAuthors = asyncComponent(() => {
   return import('./pages/Authors');
+});
+
+const AsyncCategories = asyncComponent(() => {
+  return import('./pages/Categories');
 });
 
 class App extends Component {
@@ -36,10 +36,11 @@ class App extends Component {
         <Layout>
           <Switch>
             <Route path="/authors" component={AsyncAuthors} />
-            <Route path="/categories/:slug" component={AsyncOverview} />
+            <Route path="/categories" component={AsyncCategories} />
             <Route path="/poems/:id" exact component={AsyncPoem} />
             <Route path="/new" exact component={AsyncNewPoem} />
-            <Route path="/" exact component={Library} />
+            <Route path="/home" exact component={Library} />
+            <Redirect from='/' to="/home" /> 
             <Route render={()=><h1>Not Found</h1>} />
           </Switch>
         </Layout>

@@ -1,0 +1,21 @@
+.Category {
+    display: inline-block;
+    text-align: start;
+    padding: 10px 5px;
+    margin: 15px 10px;
+    border: 1px solid rgba(141, 206, 231, 0.808);
+    border-radius: 3px;
+    background-color: rgb(180, 223, 240);
+    text-decoration: none;
+}
+
+.Category:active,
+.Category:hover{
+    color: white;
+}
+
+
+.Categories {
+    width: 90%;
+    padding: 40px;
+}
