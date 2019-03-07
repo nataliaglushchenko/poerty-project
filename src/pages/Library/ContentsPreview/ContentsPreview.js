@@ -52,6 +52,9 @@ export default class ContentsPreview extends Component {
                 
         return (
             <div>
+                {
+                    this.props.error && <div className={classes.Error}>Something went wrong...</div> 
+                } 
                 {topRecommendedPoems}
             </div>
         );

@@ -6,6 +6,12 @@
     padding: 30px; 
 }
 
+.Error {
+    text-align: center;
+    font-size: 25px;
+    margin: 50px;
+}
+
 @media (min-width: 500px) {
     .ContentsPreview {
         display: flex;

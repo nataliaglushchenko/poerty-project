@@ -8,7 +8,8 @@ const mapStateToProps = state => {
     return {
         recommendedPoems: state.recommendedPoems.recommendedPoems,
         loading: state.recommendedPoems.loading,
-        isRecommendedPoemsLoaded: state.recommendedPoems.isLoaded
+        isRecommendedPoemsLoaded: state.recommendedPoems.isLoaded,
+        error: state.recommendedPoems.error
     };
 };
 

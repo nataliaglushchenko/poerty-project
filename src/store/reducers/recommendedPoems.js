@@ -3,7 +3,8 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     recommendedPoems: [],
     loading: false,
-    isLoaded: false
+    isLoaded: false,
+    error: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -11,18 +12,21 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_RECOMMENDED_POEMS_START: return {
             ...state,
             loading: true,
-            isLoaded: false
+            isLoaded: false,
+            error: null
         };            
         case actionTypes.FETCH_RECOMMENDED_POEMS_SUCCESS: return {
             ...state,
             loading: false,
             recommendedPoems: action.recommendedPoems,
-            isLoaded: true
+            isLoaded: true,
+            error: null
         }; 
         case actionTypes.FETCH_RECOMMENDED_POEMS_FAIL: return {
             ...state,
             loading: false,
-            isLoaded: false
+            isLoaded: false,
+            error: action.error.message
         }; 
         default: return state;
     }  
